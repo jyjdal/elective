@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "elective-main.config.name",
+      "type": "java.lang.String",
+      "description": "Description for elective-main.config.name."
+    }
+  ]
+}
