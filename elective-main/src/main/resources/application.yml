@@ -1,3 +1,12 @@
-elective-main:
-  config:
-    name: 123
+logging:
+  file:
+    name: elective.log
+    path: log
+# TODO 在生产环境下取消掉这里的注释
+#  level: # 屏蔽掉默认的日志输出
+#    org.springframework.*: off
+#    org.jline.*: off
+
+spring:
+  main:
+    banner-mode: off # 不显示banner

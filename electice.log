@@ -1,0 +1,89 @@
+2021-10-14 20:55:53.972  INFO 6604 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 6604 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 20:55:53.987  INFO 6604 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 20:55:55.227  WARN 6604 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 20:55:55.945  INFO 6604 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 2.796 seconds (JVM running for 4.434)
+2021-10-14 21:08:47.018  INFO 6688 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 6688 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:08:47.018  INFO 6688 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:08:47.956  WARN 6688 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 21:08:48.096  INFO 6688 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 1.758 seconds (JVM running for 3.617)
+2021-10-14 21:08:54.245  INFO 6688 --- [main] com.example.main.command.LoginCommand    : successfully logged in as: null
+2021-10-14 21:08:54.245  INFO 6688 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-10-14 21:08:54.291 ERROR 6688 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+java.io.IOError: java.io.IOException: Stream Closed
+	at org.jline.keymap.BindingReader.readCharacter(BindingReader.java:142) ~[jline-3.4.0.jar:na]
+	at org.jline.keymap.BindingReader.readBinding(BindingReader.java:109) ~[jline-3.4.0.jar:na]
+	at org.jline.keymap.BindingReader.readBinding(BindingReader.java:60) ~[jline-3.4.0.jar:na]
+	at org.jline.reader.impl.LineReaderImpl.readBinding(LineReaderImpl.java:720) ~[jline-3.4.0.jar:na]
+	at org.jline.reader.impl.LineReaderImpl.readLine(LineReaderImpl.java:522) ~[jline-3.4.0.jar:na]
+	at org.jline.reader.impl.LineReaderImpl.readLine(LineReaderImpl.java:390) ~[jline-3.4.0.jar:na]
+	at org.springframework.shell.jline.InteractiveShellApplicationRunner$JLineInputProvider.readInput(InteractiveShellApplicationRunner.java:115) ~[spring-shell-core-2.0.1.RELEASE.jar:2.0.1.RELEASE]
+	at org.springframework.shell.Shell.run(Shell.java:129) ~[spring-shell-core-2.0.1.RELEASE.jar:2.0.1.RELEASE]
+	at org.springframework.shell.jline.InteractiveShellApplicationRunner.run(InteractiveShellApplicationRunner.java:84) ~[spring-shell-core-2.0.1.RELEASE.jar:2.0.1.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:782) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:345) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.5.jar:2.5.5]
+	at com.example.main.ElectiveMainApplication.main(ElectiveMainApplication.java:23) ~[classes/:na]
+Caused by: java.io.IOException: Stream Closed
+	at java.base/java.io.FileInputStream.read0(Native Method) ~[na:na]
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:228) ~[na:na]
+	at org.jline.terminal.impl.DumbTerminal$1.read(DumbTerminal.java:48) ~[jline-3.4.0.jar:na]
+	at org.jline.terminal.impl.DumbTerminal$1.read(DumbTerminal.java:85) ~[jline-3.4.0.jar:na]
+	at java.base/sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:270) ~[na:na]
+	at java.base/sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:313) ~[na:na]
+	at java.base/sun.nio.cs.StreamDecoder.read(StreamDecoder.java:188) ~[na:na]
+	at java.base/sun.nio.cs.StreamDecoder.read0(StreamDecoder.java:137) ~[na:na]
+	at java.base/sun.nio.cs.StreamDecoder.read(StreamDecoder.java:122) ~[na:na]
+	at java.base/java.io.InputStreamReader.read(InputStreamReader.java:169) ~[na:na]
+	at org.jline.utils.NonBlockingReader.run(NonBlockingReader.java:276) ~[jline-3.4.0.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2021-10-14 21:10:12.453  INFO 6704 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 6704 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:10:12.453  INFO 6704 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:10:13.686  WARN 6704 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 21:10:13.842  INFO 6704 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 2.583 seconds (JVM running for 4.896)
+2021-10-14 21:10:31.034  INFO 6704 --- [main] com.example.main.command.LoginCommand    : successfully logged in as: null
+2021-10-14 21:10:31.034  INFO 6704 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-10-14 21:10:31.081 ERROR 6704 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+java.io.IOError: java.io.IOException: Stream Closed
+	at org.jline.keymap.BindingReader.readCharacter(BindingReader.java:142) ~[jline-3.4.0.jar:na]
+	at org.jline.keymap.BindingReader.readBinding(BindingReader.java:109) ~[jline-3.4.0.jar:na]
+	at org.jline.keymap.BindingReader.readBinding(BindingReader.java:60) ~[jline-3.4.0.jar:na]
+	at org.jline.reader.impl.LineReaderImpl.readBinding(LineReaderImpl.java:720) ~[jline-3.4.0.jar:na]
+	at org.jline.reader.impl.LineReaderImpl.readLine(LineReaderImpl.java:522) ~[jline-3.4.0.jar:na]
+	at org.jline.reader.impl.LineReaderImpl.readLine(LineReaderImpl.java:390) ~[jline-3.4.0.jar:na]
+	at org.springframework.shell.jline.InteractiveShellApplicationRunner$JLineInputProvider.readInput(InteractiveShellApplicationRunner.java:115) ~[spring-shell-core-2.0.1.RELEASE.jar:2.0.1.RELEASE]
+	at org.springframework.shell.Shell.run(Shell.java:129) ~[spring-shell-core-2.0.1.RELEASE.jar:2.0.1.RELEASE]
+	at org.springframework.shell.jline.InteractiveShellApplicationRunner.run(InteractiveShellApplicationRunner.java:84) ~[spring-shell-core-2.0.1.RELEASE.jar:2.0.1.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:782) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:345) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.5.jar:2.5.5]
+	at com.example.main.ElectiveMainApplication.main(ElectiveMainApplication.java:23) ~[classes/:na]
+Caused by: java.io.IOException: Stream Closed
+	at java.base/java.io.FileInputStream.read0(Native Method) ~[na:na]
+	at java.base/java.io.FileInputStream.read(FileInputStream.java:228) ~[na:na]
+	at org.jline.terminal.impl.DumbTerminal$1.read(DumbTerminal.java:48) ~[jline-3.4.0.jar:na]
+	at org.jline.terminal.impl.DumbTerminal$1.read(DumbTerminal.java:85) ~[jline-3.4.0.jar:na]
+	at java.base/sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:270) ~[na:na]
+	at java.base/sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:313) ~[na:na]
+	at java.base/sun.nio.cs.StreamDecoder.read(StreamDecoder.java:188) ~[na:na]
+	at java.base/sun.nio.cs.StreamDecoder.read0(StreamDecoder.java:137) ~[na:na]
+	at java.base/sun.nio.cs.StreamDecoder.read(StreamDecoder.java:122) ~[na:na]
+	at java.base/java.io.InputStreamReader.read(InputStreamReader.java:169) ~[na:na]
+	at org.jline.utils.NonBlockingReader.run(NonBlockingReader.java:276) ~[jline-3.4.0.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2021-10-14 21:11:37.116  INFO 5532 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 5532 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:11:37.132  INFO 5532 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:11:38.146  WARN 5532 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 21:11:38.239  INFO 5532 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 1.757 seconds (JVM running for 3.212)
+2021-10-14 21:11:46.463  INFO 5532 --- [main] com.example.main.command.LoginCommand    : successfully logged in as: null

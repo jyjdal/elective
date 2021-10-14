@@ -7,19 +7,14 @@
         <artifactId>elective</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>elective-main</artifactId>
+    <artifactId>elective-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>elective-main</name>
-    <description>elective-main</description>
+    <name>elective-common</name>
+    <description>elective-common</description>
     <properties>
         <java.version>17</java.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>elective-user</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -27,6 +22,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>exec</classifier>
+                </configuration>
             </plugin>
         </plugins>
     </build>

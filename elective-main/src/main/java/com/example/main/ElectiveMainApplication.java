@@ -6,8 +6,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.util.StringUtils;
 
 /**
+ * 应用程序的入口，整个选课系统从这里启动
+ *
  * @author admin
+ * 使用@ComponentScan指定自动扫描的包，否则在其他模块下的bean无法被spring ioc容器管理
  */
+@ComponentScan("com.example.*")
 @SpringBootApplication
 public class ElectiveMainApplication {
 

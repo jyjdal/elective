@@ -1,0 +1,188 @@
+2021-10-14 21:18:00.624  INFO 7060 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 7060 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:18:00.624  INFO 7060 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:18:01.806  INFO 7060 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 1.986 seconds (JVM running for 3.616)
+2021-10-14 21:18:25.317  INFO 7060 --- [main] com.example.main.command.LoginCommand    : successfully logged in as: null
+2021-10-14 21:37:47.277  INFO 7076 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 7076 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:37:47.277  INFO 7076 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:37:58.390  INFO 4608 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 4608 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:37:58.405  INFO 4608 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:38:59.572  INFO 5944 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 5944 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:38:59.587  INFO 5944 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:39:00.244  WARN 5944 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'loginCommand': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userLoginController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminLoginServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.example.electiveuser.service.AdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup="", name="", description="", authenticationType=CONTAINER, type=java.lang.Object.class, mappedName="")}
+2021-10-14 21:39:00.260  INFO 5944 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-10-14 21:39:00.276 ERROR 5944 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.example.electiveuser.service.AdminService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.example.electiveuser.service.AdminService' in your configuration.
+
+2021-10-14 21:39:23.620  INFO 1412 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 1412 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:39:23.620  INFO 1412 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:39:24.276  WARN 1412 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'loginCommand': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userLoginController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminLoginServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.example.electiveuser.service.impl.AdminServiceImpl' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup="", name="", description="", authenticationType=CONTAINER, type=java.lang.Object.class, mappedName="")}
+2021-10-14 21:39:24.276  INFO 1412 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-10-14 21:39:24.307 ERROR 1412 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.example.electiveuser.service.impl.AdminServiceImpl' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.example.electiveuser.service.impl.AdminServiceImpl' in your configuration.
+
+2021-10-14 21:39:44.753  INFO 5916 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 5916 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:39:44.753  INFO 5916 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:39:45.522  WARN 5916 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'loginCommand': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userLoginController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.example.electiveuser.service.impl.TeacherLoginServiceImpl' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup="", name="", description="", authenticationType=CONTAINER, type=java.lang.Object.class, mappedName="")}
+2021-10-14 21:39:45.522  INFO 5916 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-10-14 21:39:45.553 ERROR 5916 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.example.electiveuser.service.impl.TeacherLoginServiceImpl' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.example.electiveuser.service.impl.TeacherLoginServiceImpl' in your configuration.
+
+2021-10-14 21:40:14.598  INFO 6284 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 6284 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:40:14.613  INFO 6284 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:40:15.690  WARN 6284 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 21:40:15.861  INFO 6284 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 1.952 seconds (JVM running for 3.327)
+2021-10-14 21:40:21.867  INFO 6284 --- [main] com.example.main.command.LoginCommand    : successfully logged in as type: null, account: null
+2021-10-14 21:43:04.373  INFO 5272 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 5272 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:43:04.389  INFO 5272 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:43:05.408  WARN 5272 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 21:43:05.533  INFO 5272 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 2.001 seconds (JVM running for 3.795)
+2021-10-14 21:43:13.083  INFO 5272 --- [main] com.example.main.command.LoginCommand    : successfully logged in as type: ADMIN, account: admin
+2021-10-14 21:52:49.245  INFO 6724 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 6724 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:52:49.260  INFO 6724 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:52:50.263  WARN 6724 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 21:52:50.372  INFO 6724 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 1.88 seconds (JVM running for 3.594)
+2021-10-14 21:53:52.988  INFO 7068 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 7068 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 21:53:53.004  INFO 7068 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 21:53:53.908  WARN 7068 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 21:53:54.018  INFO 7068 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 1.689 seconds (JVM running for 3.03)
+2021-10-14 22:01:16.433  INFO 7380 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 7380 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 22:01:16.448  INFO 7380 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 22:01:17.557  WARN 7380 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 22:01:17.666  INFO 7380 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 2.166 seconds (JVM running for 3.685)
+2021-10-14 22:05:17.038  INFO 4068 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 4068 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 22:05:17.038  INFO 4068 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 22:05:19.087  WARN 4068 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 22:05:19.212  INFO 4068 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 3.541 seconds (JVM running for 8.743)
+2021-10-14 22:12:50.782  INFO 8112 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 8112 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 22:12:50.782  INFO 8112 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 22:12:51.721  WARN 8112 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'loginCommand': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userLoginController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminLoginServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminServiceImpl' defined in file [E:\elective\elective-user\target\classes\com\example\electiveuser\service\impl\AdminServiceImpl.class]: Invocation of init method failed; nested exception is java.lang.NullPointerException: Cannot invoke "com.example.electiveuser.dao.AdminDAO.setId(String)" because "this.currentAdmin" is null
+2021-10-14 22:12:51.737  INFO 8112 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-10-14 22:12:51.753 ERROR 8112 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'loginCommand': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userLoginController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminLoginServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminServiceImpl' defined in file [E:\elective\elective-user\target\classes\com\example\electiveuser\service\impl\AdminServiceImpl.class]: Invocation of init method failed; nested exception is java.lang.NullPointerException: Cannot invoke "com.example.electiveuser.dao.AdminDAO.setId(String)" because "this.currentAdmin" is null
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:944) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-2.5.5.jar:2.5.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[spring-boot-2.5.5.jar:2.5.5]
+	at com.example.main.ElectiveMainApplication.main(ElectiveMainApplication.java:24) ~[classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userLoginController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminLoginServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminServiceImpl' defined in file [E:\elective\elective-user\target\classes\com\example\electiveuser\service\impl\AdminServiceImpl.class]: Invocation of init method failed; nested exception is java.lang.NullPointerException: Cannot invoke "com.example.electiveuser.dao.AdminDAO.setId(String)" because "this.currentAdmin" is null
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeanByName(AbstractAutowireCapableBeanFactory.java:479) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:527) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:497) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:650) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:318) ~[spring-context-5.3.10.jar:5.3.10]
+	... 16 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminLoginServiceImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminServiceImpl' defined in file [E:\elective\elective-user\target\classes\com\example\electiveuser\service\impl\AdminServiceImpl.class]: Invocation of init method failed; nested exception is java.lang.NullPointerException: Cannot invoke "com.example.electiveuser.dao.AdminDAO.setId(String)" because "this.currentAdmin" is null
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1380) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1300) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:521) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:497) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:650) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:318) ~[spring-context-5.3.10.jar:5.3.10]
+	... 30 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminServiceImpl' defined in file [E:\elective\elective-user\target\classes\com\example\electiveuser\service\impl\AdminServiceImpl.class]: Invocation of init method failed; nested exception is java.lang.NullPointerException: Cannot invoke "com.example.electiveuser.dao.AdminDAO.setId(String)" because "this.currentAdmin" is null
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1380) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1300) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:521) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:497) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:650) ~[spring-context-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:228) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:318) ~[spring-context-5.3.10.jar:5.3.10]
+	... 46 common frames omitted
+Caused by: java.lang.NullPointerException: Cannot invoke "com.example.electiveuser.dao.AdminDAO.setId(String)" because "this.currentAdmin" is null
+	at com.example.electiveuser.service.impl.AdminServiceImpl.afterPropertiesSet(AdminServiceImpl.java:33) ~[classes/:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863) ~[spring-beans-5.3.10.jar:5.3.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.10.jar:5.3.10]
+	... 61 common frames omitted
+
+2021-10-14 22:14:23.356  INFO 7400 --- [main] c.example.main.ElectiveMainApplication   : Starting ElectiveMainApplication using Java 17 on admin-PC with PID 7400 (E:\elective\elective-main\target\classes started by admin in E:\elective)
+2021-10-14 22:14:23.356  INFO 7400 --- [main] c.example.main.ElectiveMainApplication   : No active profile set, falling back to default profiles: default
+2021-10-14 22:14:24.557  WARN 7400 --- [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2021-10-14 22:14:24.666  INFO 7400 --- [main] c.example.main.ElectiveMainApplication   : Started ElectiveMainApplication in 2.023 seconds (JVM running for 3.437)
+2021-10-14 22:14:32.530  INFO 7400 --- [main] com.example.main.command.LoginCommand    : successfully logged in as type: ADMIN, account: admin
