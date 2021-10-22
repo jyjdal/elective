@@ -2,8 +2,11 @@ package com.example.electiveuser.service.impl;
 
 import com.example.electivecommon.config.LoginStatus;
 import com.example.electivecommon.constant.DataFileName;
+import com.example.electivecommon.dto.ElectiveResult;
+import com.example.electivecommon.enums.LoginType;
 import com.example.electiveuser.dao.AdminDAO;
 import com.example.electiveuser.service.AdminService;
+import com.example.electiveuser.service.BaseLoginService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
@@ -22,7 +25,7 @@ import java.util.UUID;
  */
 @Slf4j
 @Service
-public class AdminServiceImpl implements AdminService, InitializingBean, DisposableBean {
+public class AdminServiceImpl implements AdminService, BaseLoginService, InitializingBean, DisposableBean {
     private AdminDAO currentAdmin;
 
     @Resource
@@ -41,16 +44,45 @@ public class AdminServiceImpl implements AdminService, InitializingBean, Disposa
     }
 
     @Override
-    public void updateAccount(String newAccount, String newPassword) {
-        this.currentAdmin.setAccount(newAccount);
-        // 更新密码，需要转换成md5格式
-        this.currentAdmin.setPassword(DigestUtils.md5DigestAsHex(
-                newPassword.getBytes(StandardCharsets.UTF_8)));
+    public ElectiveResult updateAccount(String newAccount, String newPassword) {
+        if (newAccount.length() == 0) {
+            // 账号为空值，转换成当前登录的账户
+            newAccount = loginStatus.getAccount();
+        }
+        if (newPassword.length() == 0) {
+            // 密码为空值，转换成当前登录的密码
+            newPassword = loginStatus.getPassword();
+        } else {
+            // 密码不为空值，转换成md5加密格式
+            newPassword = DigestUtils.md5DigestAsHex(newPassword.getBytes(StandardCharsets.UTF_8));
+        }
 
-        // 由于AdminCommand.updateAdmin命令的可见性，执行到这里的时候一定以账号为account的管理员身份登录
+        // 更新账号密码
+        this.currentAdmin.setAccount(newAccount);
+        this.currentAdmin.setPassword(newPassword);
+
         // 同时要变更当前登录状态
+        // 由于AdminCommand.updateAdmin命令的可见性，执行到这里的时候一定以账号为account的管理员身份登录
         loginStatus.setAccount(newAccount);
         loginStatus.setPassword(newPassword);
+        return new ElectiveResult(true, "Successfully updated account: %s".formatted(newAccount));
+    }
+
+    @Override
+    public ElectiveResult login(String account, String password) {
+        if (!hasAdmin(account)) {
+            return new ElectiveResult(false, "Account doesn't exist.");
+        }
+        if (!verifyAdmin(account, password)) {
+            return new ElectiveResult(false, "Password wrong!");
+        } else {
+            // 登录成功，变更当前登录状态
+            loginStatus.setLoggedIn(true);
+            loginStatus.setLoginType(LoginType.ADMIN);
+            loginStatus.setAccount(account);
+            loginStatus.setPassword(password);
+            return new ElectiveResult(true, "Successfully logged in.");
+        }
     }
 
     @Override

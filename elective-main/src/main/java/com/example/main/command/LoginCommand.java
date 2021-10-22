@@ -43,11 +43,11 @@ public class LoginCommand {
         LoginType loginType = LoginType.valueOf(type.toUpperCase());
 
         // 传入登录类型、账号和密码进行登录
-        ElectiveResult loginDTO = userLoginController.login(loginType, account, password);
-        System.out.println(loginDTO.getMessage());
+        ElectiveResult result = userLoginController.login(loginType, account, password);
+        System.out.println(result.getMessage());
 
         // 如果登陆成功，将信息写入到日志中
-        if (loginDTO.getSuccess()) {
+        if (result.getSuccess()) {
             log.info("Successfully logged in as type: %s, account: %s"
                     .formatted(loginStatus.getLoginType(), loginStatus.getAccount()));
         }

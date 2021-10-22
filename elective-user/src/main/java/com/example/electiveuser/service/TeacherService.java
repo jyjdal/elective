@@ -53,13 +53,15 @@ public interface TeacherService {
      * 根据工号或账号删除教师信息
      *
      * @param workId 需要删除的教师工号
+     * @return 返回删除结果
      */
-    void removeTeacherByWorkId(String workId);
+    ElectiveResult removeTeacherByWorkId(String workId);
 
     /**
      * 按照工号重置教师密码
      *
      * @param workId 需要重置密码的教师工号
+     * @return 返回重置结果
      */
-    void resetPasswordByWorkId(String workId);
+    ElectiveResult resetPasswordByWorkId(String workId);
 }

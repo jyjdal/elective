@@ -2,9 +2,7 @@ package com.example.electiveuser.controller;
 
 import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecommon.enums.LoginType;
-import com.example.electiveuser.service.impl.AdminLoginServiceImpl;
-import com.example.electiveuser.service.impl.StudentLoginServiceImpl;
-import com.example.electiveuser.service.impl.TeacherLoginServiceImpl;
+import com.example.electiveuser.service.impl.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -15,20 +13,19 @@ import javax.annotation.Resource;
 @Component
 public class UserLoginController {
     @Resource
-    private AdminLoginServiceImpl adminLoginService;
+    private AdminServiceImpl adminService;
 
     @Resource
-    private TeacherLoginServiceImpl teacherLoginService;
+    private TeacherServiceImpl teacherService;
 
     @Resource
-    private StudentLoginServiceImpl studentLoginService;
-
+    private StudentServiceImpl studentService;
 
     public ElectiveResult login(LoginType loginType, String account, String password) {
         return switch (loginType) {
-            case ADMIN -> adminLoginService.login(account, password);
-            case TEACHER -> teacherLoginService.login(account, password);
-            case STUDENT -> studentLoginService.login(account, password);
+            case ADMIN -> adminService.login(account, password);
+            case TEACHER -> teacherService.login(account, password);
+            case STUDENT -> studentService.login(account, password);
         };
     }
 }

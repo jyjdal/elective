@@ -45,25 +45,11 @@ public class AdminCommand {
     @ShellMethod(value = "Update current admin account.", key = "admin update")
     public void updateAdmin(@ShellOption(defaultValue = "") String account
             , @ShellOption(defaultValue = "") String password) {
-        // 如果都为空值，那么直接返回
-        if (account.length() == 0 && password.length() == 0) {
-            return;
-        }
-        // 至少有一个不为空值，按照逻辑处理
-        if (account.length() != 0 && password.length() != 0) {
-            // 两个都更新，新密码不要写入到日志中
-            log.info("Successfully updated admin account: %s.".formatted(account));
-            adminService.updateAccount(account, password);
-        } else {
-            if (account.length() == 0) {
-                // 只更新密码
-                log.info("Successfully updated admin account: %s.".formatted(loginStatus.getAccount()));
-                adminService.updateAccount(loginStatus.getAccount(), password);
-            } else {
-                // 只更新账号
-                log.info("Successfully updated admin account: %s.".formatted(account));
-                adminService.updateAccount(account, loginStatus.getPassword());
-            }
+        // 如果都为空值，那么就不作任何处理
+        if (account.length() != 0 || password.length() != 0) {
+            ElectiveResult result = adminService.updateAccount(account, password);
+            System.out.println(result.getMessage());
+            log.info(result.getMessage());
         }
     }
 
@@ -103,10 +89,9 @@ public class AdminCommand {
         if (!result.getSuccess()) {
             System.out.println(result.getMessage());
         } else {
+            // 如果没有错误，输出信息并写入日志
             System.out.println(result.getMessage());
-            // 如果没有错误，就写入日志
-            log.info("Added teacher account: %s, name: %s, workId: %s."
-                    .formatted(account, name, workId));
+            log.info(result.getMessage());
         }
     }
 
@@ -117,26 +102,18 @@ public class AdminCommand {
      */
     @ShellMethod(value = "Remove a teacher.", key = "remove teacher")
     public void removeTeacher(@ShellOption(defaultValue = "") String workId) {
-        // 如果工号为空，我该找谁？
-        if (workId.length() == 0) {
-            System.out.println("WorkId cannot be empty!");
-            return;
+        ElectiveResult result = teacherService.removeTeacherByWorkId(workId);
+        // 首先输出执行结果
+        System.out.println(result.getMessage());
+        // 如果成功执行，那么写入日志
+        if (result.getSuccess()) {
+            log.info(result.getMessage());
         }
-        // 查不到这名教师的信息
-        if (!teacherService.hasTeacherWithWorkId(workId)) {
-            System.out.println("Teacher workId doesn't exist!");
-            return;
-        }
-        // 删除对应的教师信息并计入日志
-        teacherService.removeTeacherByWorkId(workId);
-        String info = "Removed teacher with workId: %s.".formatted(workId);
-        log.info(info);
-        // 输出成功信息
-        System.out.println(info);
     }
 
     /**
      * 按照工号重置教师的密码
+     *
      * @param workId 需要重置密码的教师工号
      */
     @ShellMethod(value = "Reset a teacher's password.", key = "reset teacher")

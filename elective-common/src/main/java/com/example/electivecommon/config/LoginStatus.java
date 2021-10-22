@@ -1,6 +1,7 @@
 package com.example.electivecommon.config;
 
 import com.example.electivecommon.enums.LoginType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
