@@ -1,17 +1,21 @@
 package com.example.main.command;
 
-import com.example.electiveuser.dto.LoginDTO;
-import com.example.electiveuser.controller.UserLoginController;
 import com.example.electivecommon.config.LoginStatus;
+import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecommon.enums.LoginType;
+import com.example.electiveuser.controller.UserLoginController;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellMethodAvailability;
 import org.springframework.shell.standard.ShellOption;
 
 import javax.annotation.Resource;
 
 /**
+ * 所有和用户登录相关的命令都在这里
+ *
  * @author admin
  */
 @Slf4j
@@ -19,13 +23,12 @@ import javax.annotation.Resource;
 public class LoginCommand {
     @Resource
     private final LoginStatus loginStatus;
+    @Resource
+    private UserLoginController userLoginController;
 
     public LoginCommand(LoginStatus loginStatus) {
         this.loginStatus = loginStatus;
     }
-
-    @Resource
-    private UserLoginController userLoginController;
 
     /**
      * 用于以不同的身份登录
@@ -40,25 +43,37 @@ public class LoginCommand {
         LoginType loginType = LoginType.valueOf(type.toUpperCase());
 
         // 传入登录类型、账号和密码进行登录
-        LoginDTO loginDTO = userLoginController.login(loginType, account, password);
+        ElectiveResult loginDTO = userLoginController.login(loginType, account, password);
         System.out.println(loginDTO.getMessage());
 
         // 如果登陆成功，将信息写入到日志中
         if (loginDTO.getSuccess()) {
-            log.info("successfully logged in as type: %s, account: %s"
+            log.info("Successfully logged in as type: %s, account: %s"
                     .formatted(loginStatus.getLoginType(), loginStatus.getAccount()));
         }
     }
 
+    @ShellMethodAvailability({"login"})
+    public Availability loginAvailability() {
+        return !loginStatus.getLoggedIn() ?
+                Availability.available() : Availability.unavailable("Already logged in!");
+    }
+
     /**
-     * TODO 正式写代码的时候记得删除这个方法
-     * 定义子命令的方法
+     * 登陆成功后的退出登录方法
      */
-    @ShellMethod(value = "say hello", key = "login hello")
-    public void hello() {
-        System.out.println("hello");
-        loginStatus.setLoggedIn(true);
-        loginStatus.setLoginType(LoginType.ADMIN);
-        loginStatus.setAccount("admin");
+    @ShellMethod("Logout from current account.")
+    public void logout() {
+        loginStatus.setLoggedIn(false);
+        loginStatus.setLoginType(null);
+        loginStatus.setAccount(null);
+        loginStatus.setPassword(null);
+    }
+
+    @ShellMethodAvailability({"logout"})
+    public Availability logoutAvailability() {
+        String message = "未登录用户无法退出登录！";
+        return loginStatus.getLoggedIn() ?
+                Availability.available() : Availability.unavailable(message);
     }
 }

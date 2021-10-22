@@ -1,7 +1,7 @@
 package com.example.electiveuser.controller;
 
+import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecommon.enums.LoginType;
-import com.example.electiveuser.dto.LoginDTO;
 import com.example.electiveuser.service.impl.AdminLoginServiceImpl;
 import com.example.electiveuser.service.impl.StudentLoginServiceImpl;
 import com.example.electiveuser.service.impl.TeacherLoginServiceImpl;
@@ -24,7 +24,7 @@ public class UserLoginController {
     private StudentLoginServiceImpl studentLoginService;
 
 
-    public LoginDTO login(LoginType loginType, String account, String password) {
+    public ElectiveResult login(LoginType loginType, String account, String password) {
         return switch (loginType) {
             case ADMIN -> adminLoginService.login(account, password);
             case TEACHER -> teacherLoginService.login(account, password);

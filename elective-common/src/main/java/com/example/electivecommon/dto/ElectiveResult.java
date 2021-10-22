@@ -1,4 +1,4 @@
-package com.example.electiveuser.dto;
+package com.example.electivecommon.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @ToString
-public class LoginDTO {
+public class ElectiveResult {
     private Boolean success;
     private String message;
 }

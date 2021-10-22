@@ -34,3 +34,10 @@ build/
 
 ### Document Files ###
 doc/
+
+### log files and data files ###
+electice.log
+spring-shell.log
+admin.json
+teacher.json
+*.gz

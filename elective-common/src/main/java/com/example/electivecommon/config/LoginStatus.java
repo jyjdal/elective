@@ -29,13 +29,18 @@ public class LoginStatus implements InitializingBean {
     private String account;
 
     /**
+     * 登陆成功后的当前账号的密码
+     */
+    private String password;
+
+    /**
      * 用于在应用实际创建之前完成登录状态的初始化
-     *
      */
     @Override
     public void afterPropertiesSet() {
         loggedIn = false;
         loginType = null;
         account = null;
+        password = null;
     }
 }
