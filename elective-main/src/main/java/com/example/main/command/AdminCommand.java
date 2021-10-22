@@ -118,15 +118,11 @@ public class AdminCommand {
      */
     @ShellMethod(value = "Reset a teacher's password.", key = "reset teacher")
     public void resetTeacher(@ShellOption String workId) {
-        if (!teacherService.hasTeacherWithWorkId(workId)) {
-            System.out.println("WorkId doesn't exist!");
-            return;
+        ElectiveResult result = teacherService.resetPasswordByWorkId(workId);
+        System.out.println(result.getMessage());
+        if (result.getSuccess()) {
+            log.info(result.getMessage());
         }
-        // 如果找到了，就重置密码
-        teacherService.resetPasswordByWorkId(workId);
-        String info = "Successfully reset password of teacher: %s.".formatted(workId);
-        log.info(info);
-        System.out.println(info);
     }
 
     /**
