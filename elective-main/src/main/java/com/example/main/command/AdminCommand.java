@@ -245,8 +245,8 @@ public class AdminCommand {
             "list teacher", "add teacher", "remove teacher", "reset teacher",
             "list course", "add optional", "add required", "remove course", "list course sorted",
             "set course teacher"})
-    public Availability loginCommandAvailability() {
+    public Availability adminCommandAvailability() {
         return loginStatus.getLoggedIn() && loginStatus.getLoginType() == LoginType.ADMIN ?
-                Availability.available() : Availability.unavailable("当前登录身份不是管理员！");
+                Availability.available() : Availability.unavailable("You are not logged in as ADMIN!");
     }
 }

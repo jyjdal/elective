@@ -56,4 +56,12 @@ public interface CourseService {
      * @return 更改结果
      */
     ElectiveResult setTeacherWordId(String courseId, String workId);
+
+    /**
+     * 根据教师工号查找教师教授的课程
+     *
+     * @param workId 需要搜索的教师工号
+     * @return 所有符合条件的课程信息
+     */
+    List<BaseCourseDAO> getAllByTeacherWorkId(String workId);
 }

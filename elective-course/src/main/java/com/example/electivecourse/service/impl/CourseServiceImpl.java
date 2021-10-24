@@ -97,6 +97,13 @@ public class CourseServiceImpl implements CourseService, InitializingBean, Dispo
     }
 
     @Override
+    public List<BaseCourseDAO> getAllByTeacherWorkId(String workId) {
+        return this.courses.stream()
+                .filter(course -> course.getTeacherWorkId().equals(workId))
+                .toList();
+    }
+
+    @Override
     public List<BaseCourseDAO> getAll() {
         return this.courses.stream().toList();
     }

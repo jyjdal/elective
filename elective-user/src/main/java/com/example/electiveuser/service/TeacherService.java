@@ -64,4 +64,23 @@ public interface TeacherService {
      * @return 返回重置结果
      */
     ElectiveResult resetPasswordByWorkId(String workId);
+
+    /**
+     * 变更教师的账号密码
+     *
+     *
+     * @param workId
+     * @param newAccount 需要更新的账号
+     * @param newPassword 需要更新的密码
+     * @return 更新账号密码的结果
+     */
+    ElectiveResult updateAccount(String workId, String newAccount, String newPassword);
+
+    /**
+     * 根据账号查找教师
+     *
+     * @param account 需要查找的教师的账号
+     * @return 查找到的教师的工号
+     */
+    String getWorkIdByAccount(String account);
 }

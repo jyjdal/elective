@@ -103,6 +103,48 @@ public class TeacherServiceImpl implements TeacherService, BaseLoginService, Ini
     }
 
     @Override
+    public ElectiveResult updateAccount(String workId, String newAccount, String newPassword) {
+        if (newPassword.length() == 0) {
+            // 密码为空值，转换成当前登录的密码
+            newPassword = loginStatus.getPassword();
+        } else {
+            // 密码不为空值，转换成md5加密格式
+            newPassword = DigestUtils.md5DigestAsHex(newPassword.getBytes());
+        }
+
+        // 更新账号密码
+        Iterator<TeacherDAO> iterator = this.teachers.iterator();
+        while (iterator.hasNext()) {
+            TeacherDAO teacher = iterator.next();
+            if (teacher.getWorkId().equals(workId)) {
+                // 要先获取下标，否则找不到
+                int index = this.teachers.indexOf(teacher);
+                // 更新账号密码
+                teacher.setAccount(newAccount);
+                teacher.setPassword(newPassword);
+                this.teachers.setElementAt(teacher, index);
+                // 记得跳出循环，避免不必要的比较
+                break;
+            }
+        }
+
+        // 同时要变更当前登录状态
+        loginStatus.setAccount(newAccount);
+        loginStatus.setPassword(newPassword);
+        return new ElectiveResult(true, "Successfully updated account: %s".formatted(newAccount));
+    }
+
+    @Override
+    public String getWorkIdByAccount(String account) {
+        for (TeacherDAO teacher : this.teachers) {
+            if (teacher.getAccount().equals(account)) {
+                return teacher.getWorkId();
+            }
+        }
+        return null;
+    }
+
+    @Override
     public ElectiveResult login(String account, String password) {
         if (!hasTeacherWithAccount(account)) {
             return new ElectiveResult(false, "Account doesn't exist.");

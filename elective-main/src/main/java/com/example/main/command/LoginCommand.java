@@ -53,6 +53,11 @@ public class LoginCommand {
         }
     }
 
+    /**
+     * 登录命令的可用性
+     *
+     * @return 登录命令是否可用
+     */
     @ShellMethodAvailability({"login"})
     public Availability loginAvailability() {
         return !loginStatus.getLoggedIn() ?
@@ -70,6 +75,11 @@ public class LoginCommand {
         loginStatus.setPassword(null);
     }
 
+    /**
+     * 退出登录命令的可用性
+     *
+     * @return 退出登录命令是否可用
+     */
     @ShellMethodAvailability({"logout"})
     public Availability logoutAvailability() {
         String message = "未登录用户无法退出登录！";
