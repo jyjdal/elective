@@ -1,4 +1,4 @@
-package com.example.electivecommon.config;
+package com.example.electivecommon.global;
 
 import com.example.electivecommon.enums.LoginType;
 import lombok.Data;

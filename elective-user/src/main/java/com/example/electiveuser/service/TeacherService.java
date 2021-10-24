@@ -50,7 +50,7 @@ public interface TeacherService {
     ElectiveResult addTeacher(TeacherDAO teacher);
 
     /**
-     * 根据工号或账号删除教师信息
+     * 根据工号删除教师信息
      *
      * @param workId 需要删除的教师工号
      * @return 返回删除结果
@@ -69,7 +69,7 @@ public interface TeacherService {
      * 变更教师的账号密码
      *
      *
-     * @param workId
+     * @param workId 需要更新信息的教师的工号
      * @param newAccount 需要更新的账号
      * @param newPassword 需要更新的密码
      * @return 更新账号密码的结果

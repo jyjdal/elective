@@ -1,6 +1,6 @@
 package com.example.electiveuser.service.impl;
 
-import com.example.electivecommon.config.LoginStatus;
+import com.example.electivecommon.global.LoginStatus;
 import com.example.electivecommon.constant.DataFileName;
 import com.example.electivecommon.constant.Defaults;
 import com.example.electivecommon.dto.ElectiveResult;
@@ -56,9 +56,12 @@ public class TeacherServiceImpl implements TeacherService, BaseLoginService, Ini
 
     @Override
     public ElectiveResult addTeacher(TeacherDAO teacher) {
-        if (this.hasTeacherWithWorkId(teacher.getWorkId())) {
+        // 如果工号或者账号重复
+        if (hasTeacherWithWorkId(teacher.getWorkId()) || hasTeacherWithAccount(teacher.getAccount())) {
             return new ElectiveResult(false, "Teacher wordId or account already exists!");
         }
+
+        // 添加教师信息
         this.teachers.add(teacher);
         return new ElectiveResult(true, "Successfully added new teacher account: %s, name: %s, workId: %s."
                 .formatted(teacher.getAccount(), teacher.getName(), teacher.getWorkId()));
@@ -66,17 +69,14 @@ public class TeacherServiceImpl implements TeacherService, BaseLoginService, Ini
 
     @Override
     public ElectiveResult removeTeacherByWorkId(String workId) {
-        // 对参数进行校验，首先是空值
-        if (workId.length() == 0) {
-            return new ElectiveResult(false, "WorkId cannot be empty!");
-        }
-        // 如果找不到教师工号的话
+        // 如果找不到教师工号，返回错误信息
         if (this.teachers.stream().noneMatch(teacher -> teacher.getWorkId().equals(workId))) {
             return new ElectiveResult(false, "Teacher workId doesn't exist!");
         }
-        // 找到了，直接删除即可
+
+        // TODO 这里需要删除所有该教师教授的课程
         this.teachers.removeIf(teacher -> teacher.getWorkId().equals(workId));
-        return new ElectiveResult(true, "Removed teacher with workId: %s.".formatted(workId));
+        return new ElectiveResult(true, "Successfully removed teacher with workId: %s.".formatted(workId));
     }
 
     @Override

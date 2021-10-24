@@ -64,4 +64,12 @@ public interface CourseService {
      * @return 所有符合条件的课程信息
      */
     List<BaseCourseDAO> getAllByTeacherWorkId(String workId);
+
+    /**
+     * 查找所有符合要求课程号的课程
+     *
+     * @param courseIds 需要查找的课程的集合
+     * @return 查找到的所有课程
+     */
+    List<BaseCourseDAO> getAllByCourseIds(List<String> courseIds);
 }

@@ -1,6 +1,6 @@
 package com.example.main.command;
 
-import com.example.electivecommon.config.LoginStatus;
+import com.example.electivecommon.global.LoginStatus;
 import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecommon.enums.LoginType;
 import com.example.electiveuser.controller.UserLoginController;

@@ -1,6 +1,6 @@
 package com.example.electiveuser.service.impl;
 
-import com.example.electivecommon.config.LoginStatus;
+import com.example.electivecommon.global.LoginStatus;
 import com.example.electivecommon.constant.DataFileName;
 import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecommon.enums.LoginType;

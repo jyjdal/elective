@@ -7,15 +7,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
+import java.util.Vector;
 
 /**
+ * 学生类
+ *
  * @author admin
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TeacherDAO {
+public class StudentDAO {
     /**
      * 存储时的id
      */
@@ -23,28 +26,34 @@ public class TeacherDAO {
     private String id = UUID.randomUUID().toString();
 
     /**
-     * 教师的工号
+     * 学生的学号
      */
-    private String workId;
+    private String stuId;
 
     /**
-     * 教师的登录账号
+     * 学生的登录账号
      */
     private String account;
 
     /**
-     * 教师的实际姓名
+     * 学生的实际姓名
      */
     private String name;
 
     /**
-     * 教师登录的密码，初始默认密码123456
+     * 学生登录的密码，初始默认密码123456
      */
     @Builder.Default
     private String password = Defaults.DEFAULT_PASSWORD;
 
+    /**
+     * 学生选择所有课程的课号
+     */
+    @Builder.Default
+    private Vector<String> selectedCourses = new Vector<>(10);
+
     @Override
     public String toString() {
-        return "Teacher: %s, name: %s, workId: %s.".formatted(account, name, workId);
+        return "Student: %s, name: %s, stuId: %s.".formatted(account, name, stuId);
     }
 }

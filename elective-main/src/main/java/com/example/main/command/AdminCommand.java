@@ -1,15 +1,17 @@
 package com.example.main.command;
 
-import com.example.electivecommon.config.LoginStatus;
 import com.example.electivecommon.constant.Defaults;
 import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecommon.enums.LoginType;
+import com.example.electivecommon.global.LoginStatus;
 import com.example.electivecourse.dao.BaseCourseDAO;
 import com.example.electivecourse.dao.OptionalCourseDAO;
 import com.example.electivecourse.dao.RequiredCourseDAO;
 import com.example.electivecourse.service.impl.CourseServiceImpl;
+import com.example.electiveuser.dao.StudentDAO;
 import com.example.electiveuser.dao.TeacherDAO;
 import com.example.electiveuser.service.impl.AdminServiceImpl;
+import com.example.electiveuser.service.impl.StudentServiceImpl;
 import com.example.electiveuser.service.impl.TeacherServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.shell.Availability;
@@ -40,6 +42,9 @@ public class AdminCommand {
     private TeacherServiceImpl teacherService;
 
     @Resource
+    private StudentServiceImpl studentService;
+
+    @Resource
     private CourseServiceImpl courseService;
 
     /**
@@ -67,6 +72,16 @@ public class AdminCommand {
         List<TeacherDAO> result = teacherService.getAll();
         result.forEach(System.out::println);
         System.out.printf("%d teacher(s) listed.%n", result.size());
+    }
+
+    /**
+     * 显示全部的学生列表
+     */
+    @ShellMethod(value = "List all students.", key = "list student")
+    public void listStudent() {
+        List<StudentDAO> result = studentService.getAll();
+        result.forEach(System.out::println);
+        System.out.printf("%d student(s) listed.%n", result.size());
     }
 
     /**
@@ -118,12 +133,40 @@ public class AdminCommand {
     }
 
     /**
+     * 新增学生
+     *
+     * @param stuId    学生的学号
+     * @param account  学生的账号
+     * @param name     学生的真实姓名
+     * @param password 学生的密码
+     */
+    @ShellMethod(value = "Add a student.", key = "add student")
+    public void addStudent(@ShellOption String stuId, @ShellOption String account
+            , @ShellOption String name, @ShellOption(defaultValue = Defaults.DEFAULT_PASSWORD) String password) {
+        // 首先构造DAO
+        StudentDAO student = StudentDAO.builder()
+                .stuId(stuId)
+                .account(account)
+                .name(name)
+                .password(DigestUtils.md5DigestAsHex(password.getBytes()))
+                .build();
+
+        // 添加学生
+        ElectiveResult result = studentService.addStudent(student);
+        System.out.println(result.getMessage());
+        if (result.getSuccess()) {
+            // 如果没有错误，写入日志
+            log.info(result.getMessage());
+        }
+    }
+
+    /**
      * 新增选修课课程
      *
-     * @param name 课程名称
-     * @param courseId 课程号
+     * @param name          课程名称
+     * @param courseId      课程号
      * @param teacherWorkId 授课教师工号
-     * @param maxStuNum 最大学生选课数量
+     * @param maxStuNum     最大学生选课数量
      */
     @ShellMethod(value = "Add an optional course.", key = "add optional")
     public void addOptional(@ShellOption String name, @ShellOption String courseId,
@@ -150,10 +193,10 @@ public class AdminCommand {
     /**
      * 新增必修课课程
      *
-     * @param name 课程名称
-     * @param courseId 课程号
+     * @param name          课程名称
+     * @param courseId      课程号
      * @param teacherWorkId 授课教师工号
-     * @param credit 课程的学分
+     * @param credit        课程的学分
      */
     @ShellMethod(value = "Add a required course.", key = "add required")
     public void addRequired(@ShellOption String name, @ShellOption String courseId,
@@ -178,13 +221,29 @@ public class AdminCommand {
     }
 
     /**
-     * 根据工号删除教师，工号和账号不能同时为空
+     * 根据工号删除教师
      *
      * @param workId 需要删除的教师的工号
      */
     @ShellMethod(value = "Remove a teacher.", key = "remove teacher")
-    public void removeTeacher(@ShellOption(defaultValue = "") String workId) {
+    public void removeTeacher(@ShellOption String workId) {
         ElectiveResult result = teacherService.removeTeacherByWorkId(workId);
+        // 首先输出执行结果
+        System.out.println(result.getMessage());
+        // 如果成功执行，那么写入日志
+        if (result.getSuccess()) {
+            log.info(result.getMessage());
+        }
+    }
+
+    /**
+     * 根据学号删除学生
+     *
+     * @param stuId 需要删除的学生的学号
+     */
+    @ShellMethod(value = "Remove a student.", key = "remove student")
+    public void removeStudent(@ShellOption String stuId) {
+        ElectiveResult result = studentService.removeStudentByStuId(stuId);
         // 首先输出执行结果
         System.out.println(result.getMessage());
         // 如果成功执行，那么写入日志
@@ -222,10 +281,24 @@ public class AdminCommand {
     }
 
     /**
+     * 按照学号重置学生的密码
+     *
+     * @param stuId 需要重置密码的学生学号
+     */
+    @ShellMethod(value = "Reset a student's password.", key = "reset student")
+    public void resetStudent(@ShellOption String stuId) {
+        ElectiveResult result = studentService.resetPasswordByStuId(stuId);
+        System.out.println(result.getMessage());
+        if (result.getSuccess()) {
+            log.info(result.getMessage());
+        }
+    }
+
+    /**
      * 变更课程的授课教师
      *
      * @param courseId 需要变更的课程号
-     * @param workId 需要变更的目标教师工号
+     * @param workId   需要变更的目标教师工号
      */
     @ShellMethod(value = "Set a course's teacher word id.", key = "set course teacher")
     public void setCourseTeacher(@ShellOption String courseId, @ShellOption String workId) {
@@ -244,7 +317,8 @@ public class AdminCommand {
     @ShellMethodAvailability({"update admin",
             "list teacher", "add teacher", "remove teacher", "reset teacher",
             "list course", "add optional", "add required", "remove course", "list course sorted",
-            "set course teacher"})
+            "set course teacher",
+            "list student", "add student", "remove student", "reset student"})
     public Availability adminCommandAvailability() {
         return loginStatus.getLoggedIn() && loginStatus.getLoginType() == LoginType.ADMIN ?
                 Availability.available() : Availability.unavailable("You are not logged in as ADMIN!");

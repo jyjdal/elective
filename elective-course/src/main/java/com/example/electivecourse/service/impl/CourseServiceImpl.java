@@ -22,8 +22,8 @@ import java.util.Vector;
 /**
  * @author admin
  */
-@Service
 @Slf4j
+@Service
 public class CourseServiceImpl implements CourseService, InitializingBean, DisposableBean {
     private Vector<BaseCourseDAO> courses;
 
@@ -100,6 +100,14 @@ public class CourseServiceImpl implements CourseService, InitializingBean, Dispo
     public List<BaseCourseDAO> getAllByTeacherWorkId(String workId) {
         return this.courses.stream()
                 .filter(course -> course.getTeacherWorkId().equals(workId))
+                .toList();
+    }
+
+    @Override
+    public List<BaseCourseDAO> getAllByCourseIds(List<String> courseIds) {
+        return this.courses.stream()
+                .filter(course -> courseIds.stream()
+                        .anyMatch(id -> course.getCourseId().equals(id)))
                 .toList();
     }
 

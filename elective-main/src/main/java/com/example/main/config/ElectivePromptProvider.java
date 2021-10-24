@@ -1,6 +1,6 @@
 package com.example.main.config;
 
-import com.example.electivecommon.config.LoginStatus;
+import com.example.electivecommon.global.LoginStatus;
 import org.jline.utils.AttributedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.jline.PromptProvider;
