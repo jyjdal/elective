@@ -25,7 +25,8 @@ public interface AdminService {
 
     /**
      * 更新管理员账号和密码
-     *  @param newAccount  新的账号
+     *
+     * @param newAccount  新的账号
      * @param newPassword 新的密码
      * @return 返回更新结果
      */

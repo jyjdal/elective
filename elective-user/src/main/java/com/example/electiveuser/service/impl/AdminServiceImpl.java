@@ -17,8 +17,6 @@ import org.springframework.util.DigestUtils;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
 
 /**
  * @author admin
@@ -40,7 +38,7 @@ public class AdminServiceImpl implements AdminService, BaseLoginService, Initial
     public boolean verifyAdmin(String account, String password) {
         return currentAdmin.getAccount().equals(account)
                 && currentAdmin.getPassword().equals(
-                DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8)));
+                DigestUtils.md5DigestAsHex(password.getBytes()));
     }
 
     @Override
@@ -54,7 +52,7 @@ public class AdminServiceImpl implements AdminService, BaseLoginService, Initial
             newPassword = loginStatus.getPassword();
         } else {
             // 密码不为空值，转换成md5加密格式
-            newPassword = DigestUtils.md5DigestAsHex(newPassword.getBytes(StandardCharsets.UTF_8));
+            newPassword = DigestUtils.md5DigestAsHex(newPassword.getBytes());
         }
 
         // 更新账号密码
@@ -75,14 +73,14 @@ public class AdminServiceImpl implements AdminService, BaseLoginService, Initial
         }
         if (!verifyAdmin(account, password)) {
             return new ElectiveResult(false, "Password wrong!");
-        } else {
-            // 登录成功，变更当前登录状态
-            loginStatus.setLoggedIn(true);
-            loginStatus.setLoginType(LoginType.ADMIN);
-            loginStatus.setAccount(account);
-            loginStatus.setPassword(password);
-            return new ElectiveResult(true, "Successfully logged in.");
         }
+        // 登录成功，变更当前登录状态
+        loginStatus.setLoggedIn(true);
+        loginStatus.setLoginType(LoginType.ADMIN);
+        loginStatus.setAccount(account);
+        loginStatus.setPassword(password);
+        return new ElectiveResult(true, "Successfully logged in.");
+
     }
 
     @Override
@@ -93,7 +91,6 @@ public class AdminServiceImpl implements AdminService, BaseLoginService, Initial
             log.info("Data file %s not found, start setting default admin account."
                     .formatted(DataFileName.ADMIN_FILE_NAME));
             currentAdmin = new AdminDAO();
-            currentAdmin.setId(UUID.randomUUID().toString());
         } else {
             // 数据文件存在，读取文件加载信息
             log.info("Data file %s found, start loading current admin account."

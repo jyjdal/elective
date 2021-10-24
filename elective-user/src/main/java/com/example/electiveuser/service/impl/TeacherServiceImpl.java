@@ -2,7 +2,7 @@ package com.example.electiveuser.service.impl;
 
 import com.example.electivecommon.config.LoginStatus;
 import com.example.electivecommon.constant.DataFileName;
-import com.example.electivecommon.constant.Password;
+import com.example.electivecommon.constant.Defaults;
 import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecommon.enums.LoginType;
 import com.example.electiveuser.dao.TeacherDAO;
@@ -18,7 +18,6 @@ import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -52,7 +51,7 @@ public class TeacherServiceImpl implements TeacherService, BaseLoginService, Ini
     @Override
     public boolean verifyTeacher(String account, String password) {
         return this.teachers.stream().anyMatch(teacher -> teacher.getAccount().equals(account)
-                && teacher.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8))));
+                && teacher.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes())));
     }
 
     @Override
@@ -94,7 +93,7 @@ public class TeacherServiceImpl implements TeacherService, BaseLoginService, Ini
             if (teacher.getWorkId().equals(workId)) {
                 // 要先获取下标，否则找不到
                 int index = this.teachers.indexOf(teacher);
-                teacher.setPassword(DigestUtils.md5DigestAsHex(Password.DEFAULT_PASSWORD.getBytes(StandardCharsets.UTF_8)));
+                teacher.setPassword(DigestUtils.md5DigestAsHex(Defaults.DEFAULT_PASSWORD.getBytes()));
                 this.teachers.setElementAt(teacher, index);
                 // 记得跳出循环，避免不必要的比较
                 break;
@@ -130,7 +129,6 @@ public class TeacherServiceImpl implements TeacherService, BaseLoginService, Ini
             // 如果数据文件没找到，代表目前没有教师信息，直接创建空列表即可
             log.info("Data file %s not found, creating an empty list."
                     .formatted(DataFileName.TEACHER_FILE_NAME));
-            this.teachers = new Vector<>(10);
         } else {
             // 如果找到数据文件，那么就加载进来即可
             log.info("Data file %s found, start loading teacher data."
@@ -143,7 +141,7 @@ public class TeacherServiceImpl implements TeacherService, BaseLoginService, Ini
 
     @Override
     public void destroy() throws Exception {
-        // 将当前管理员信息导出
+        // 将当前教师信息导出
         log.info("Dumping teacher data to file: %s".formatted(DataFileName.TEACHER_FILE_NAME));
         File file = new File(DataFileName.TEACHER_FILE_NAME);
         new ObjectMapper().writeValue(file, this.teachers);

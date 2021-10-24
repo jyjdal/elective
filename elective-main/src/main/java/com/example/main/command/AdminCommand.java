@@ -1,8 +1,13 @@
 package com.example.main.command;
 
 import com.example.electivecommon.config.LoginStatus;
+import com.example.electivecommon.constant.Defaults;
 import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecommon.enums.LoginType;
+import com.example.electivecourse.dao.BaseCourseDAO;
+import com.example.electivecourse.dao.OptionalCourseDAO;
+import com.example.electivecourse.dao.RequiredCourseDAO;
+import com.example.electivecourse.service.impl.CourseServiceImpl;
 import com.example.electiveuser.dao.TeacherDAO;
 import com.example.electiveuser.service.impl.AdminServiceImpl;
 import com.example.electiveuser.service.impl.TeacherServiceImpl;
@@ -15,9 +20,7 @@ import org.springframework.shell.standard.ShellOption;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 管理员能够执行的所有命令
@@ -36,13 +39,16 @@ public class AdminCommand {
     @Resource
     private TeacherServiceImpl teacherService;
 
+    @Resource
+    private CourseServiceImpl courseService;
+
     /**
      * 变更管理员账号密码
      *
      * @param account  新的账号
      * @param password 新的密码
      */
-    @ShellMethod(value = "Update current admin account.", key = "admin update")
+    @ShellMethod(value = "Update current admin account.", key = "update admin")
     public void updateAdmin(@ShellOption(defaultValue = "") String account
             , @ShellOption(defaultValue = "") String password) {
         // 如果都为空值，那么就不作任何处理
@@ -59,10 +65,28 @@ public class AdminCommand {
     @ShellMethod(value = "List all teachers.", key = "list teacher")
     public void listTeacher() {
         List<TeacherDAO> result = teacherService.getAll();
-        for (TeacherDAO teacher : result) {
-            System.out.println(teacher);
-        }
+        result.forEach(System.out::println);
         System.out.printf("%d teacher(s) listed.%n", result.size());
+    }
+
+    /**
+     * 显示全部的课程列表
+     */
+    @ShellMethod(value = "List all courses.", key = "list course")
+    public void listCourse() {
+        List<BaseCourseDAO> result = courseService.getAll();
+        result.forEach(System.out::println);
+        System.out.printf("%d course(s) listed.%n", result.size());
+    }
+
+    /**
+     * 显示按照选课人数排序后的的课程列表
+     */
+    @ShellMethod(value = "List all courses sorted by student number.", key = "list course sorted")
+    public void listCourseSorted() {
+        List<BaseCourseDAO> result = courseService.getSortedByStuNum();
+        result.forEach(System.out::println);
+        System.out.printf("%d sorted course(s) listed.%n", result.size());
     }
 
     /**
@@ -75,22 +99,80 @@ public class AdminCommand {
      */
     @ShellMethod(value = "Add a teacher.", key = "add teacher")
     public void addTeacher(@ShellOption String workId, @ShellOption String account
-            , @ShellOption String name, @ShellOption(defaultValue = "123456") String password) {
+            , @ShellOption String name, @ShellOption(defaultValue = Defaults.DEFAULT_PASSWORD) String password) {
         // 首先构造DAO
-        TeacherDAO teacher = new TeacherDAO();
-        teacher.setId(UUID.randomUUID().toString());
-        teacher.setWorkId(workId);
-        teacher.setAccount(account);
-        teacher.setName(name);
-        teacher.setPassword(DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8)));
+        TeacherDAO teacher = TeacherDAO.builder()
+                .workId(workId)
+                .account(account)
+                .name(name)
+                .password(DigestUtils.md5DigestAsHex(password.getBytes()))
+                .build();
 
         // 添加教师
         ElectiveResult result = teacherService.addTeacher(teacher);
-        if (!result.getSuccess()) {
-            System.out.println(result.getMessage());
-        } else {
-            // 如果没有错误，输出信息并写入日志
-            System.out.println(result.getMessage());
+        System.out.println(result.getMessage());
+        if (result.getSuccess()) {
+            // 如果没有错误，写入日志
+            log.info(result.getMessage());
+        }
+    }
+
+    /**
+     * 新增选修课课程
+     *
+     * @param name 课程名称
+     * @param courseId 课程号
+     * @param teacherWorkId 授课教师工号
+     * @param maxStuNum 最大学生选课数量
+     */
+    @ShellMethod(value = "Add an optional course.", key = "add optional")
+    public void addOptional(@ShellOption String name, @ShellOption String courseId,
+                            @ShellOption String teacherWorkId, @ShellOption Integer maxStuNum) {
+        // 首先构造DAO
+        OptionalCourseDAO course = OptionalCourseDAO
+                .builder()
+                .name(name)
+                .courseId(courseId)
+                .teacherWorkId(teacherWorkId)
+                .maxStuNum(maxStuNum)
+                .build();
+
+        // 添加选修课程
+        ElectiveResult result = courseService.addCourse(course);
+        // 输出信息
+        System.out.println(result.getMessage());
+        if (result.getSuccess()) {
+            // 如果没有错误，写入日志
+            log.info(result.getMessage());
+        }
+    }
+
+    /**
+     * 新增必修课课程
+     *
+     * @param name 课程名称
+     * @param courseId 课程号
+     * @param teacherWorkId 授课教师工号
+     * @param credit 课程的学分
+     */
+    @ShellMethod(value = "Add a required course.", key = "add required")
+    public void addRequired(@ShellOption String name, @ShellOption String courseId,
+                            @ShellOption String teacherWorkId, @ShellOption Double credit) {
+        // 首先构造DAO
+        RequiredCourseDAO course = RequiredCourseDAO
+                .builder()
+                .name(name)
+                .courseId(courseId)
+                .teacherWorkId(teacherWorkId)
+                .credit(credit)
+                .build();
+
+        // 添加选修课程
+        ElectiveResult result = courseService.addCourse(course);
+        // 输出信息
+        System.out.println(result.getMessage());
+        if (result.getSuccess()) {
+            // 如果没有错误，写入日志
             log.info(result.getMessage());
         }
     }
@@ -112,6 +194,20 @@ public class AdminCommand {
     }
 
     /**
+     * 根据课程号删除课程，这里选择被删除的课程的学生直接退课
+     *
+     * @param courseId 需要删除的课程的课程号
+     */
+    @ShellMethod(value = "Remove a course.", key = "remove course")
+    public void removeCourse(@ShellOption(defaultValue = "") String courseId) {
+        ElectiveResult result = courseService.removeCourseByCourseId(courseId);
+        System.out.println(result.getMessage());
+        if (result.getSuccess()) {
+            log.info(result.getMessage());
+        }
+    }
+
+    /**
      * 按照工号重置教师的密码
      *
      * @param workId 需要重置密码的教师工号
@@ -126,12 +222,29 @@ public class AdminCommand {
     }
 
     /**
+     * 变更课程的授课教师
+     *
+     * @param courseId 需要变更的课程号
+     * @param workId 需要变更的目标教师工号
+     */
+    @ShellMethod(value = "Set a course's teacher word id.", key = "set course teacher")
+    public void setCourseTeacher(@ShellOption String courseId, @ShellOption String workId) {
+        ElectiveResult result = courseService.setTeacherWordId(courseId, workId);
+        System.out.println(result.getMessage());
+        if (result.getSuccess()) {
+            log.info(result.getMessage());
+        }
+    }
+
+    /**
      * 所有管理员命令的可见性
      *
      * @return 当前命令是否可用
      */
-    @ShellMethodAvailability({"admin update"
-            , "list teacher", "add teacher", "remove teacher", "reset teacher"})
+    @ShellMethodAvailability({"update admin",
+            "list teacher", "add teacher", "remove teacher", "reset teacher",
+            "list course", "add optional", "add required", "remove course", "list course sorted",
+            "set course teacher"})
     public Availability loginCommandAvailability() {
         return loginStatus.getLoggedIn() && loginStatus.getLoginType() == LoginType.ADMIN ?
                 Availability.available() : Availability.unavailable("当前登录身份不是管理员！");

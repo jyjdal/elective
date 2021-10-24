@@ -35,7 +35,7 @@ public interface TeacherService {
     /**
      * 验证教师账号是否正确
      *
-     * @param account 教师登录的账号
+     * @param account  教师登录的账号
      * @param password 教师登录的密码，需要以md5的形式传递
      * @return 账号密码是否正确
      */
