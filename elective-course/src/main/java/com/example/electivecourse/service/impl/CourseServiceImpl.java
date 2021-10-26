@@ -3,6 +3,8 @@ package com.example.electivecourse.service.impl;
 import com.example.electivecommon.constant.DataFileName;
 import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecourse.dao.BaseCourseDAO;
+import com.example.electivecourse.dao.OptionalCourseDAO;
+import com.example.electivecourse.dao.RequiredCourseDAO;
 import com.example.electivecourse.service.CourseService;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -41,7 +43,7 @@ public class CourseServiceImpl implements CourseService, InitializingBean, Dispo
 
         // 添加课程
         this.courses.add(course);
-        // TODO 如果是必修课程，所有的学生都应该选修这门必修课
+
         return new ElectiveResult(true, "Successfully added course id: %s, name: %s, teacher id: %s."
                 .formatted(course.getCourseId(), course.getName(), course.getTeacherWorkId()));
     }
@@ -55,7 +57,7 @@ public class CourseServiceImpl implements CourseService, InitializingBean, Dispo
 
         // 删除课程
         this.courses.removeIf(course -> course.getCourseId().equals(courseId));
-        // TODO 删除课程的时候所有学生都应该退选这门课程
+
         return new ElectiveResult(true, "Successfully removed course id: %s."
                 .formatted(courseId));
     }
@@ -108,6 +110,73 @@ public class CourseServiceImpl implements CourseService, InitializingBean, Dispo
         return this.courses.stream()
                 .filter(course -> courseIds.stream()
                         .anyMatch(id -> course.getCourseId().equals(id)))
+                .toList();
+    }
+
+    @Override
+    public ElectiveResult selectCourse(String courseId) {
+        // 检验课程号是否存在
+        if (!hasCourse(courseId)) {
+            return new ElectiveResult(false, "Course id doesn't exist");
+        }
+        for (BaseCourseDAO course : this.courses) {
+            if (course.getCourseId().equals(courseId)) {
+                if (course instanceof OptionalCourseDAO optionalCourse) {
+                    if (optionalCourse.getStuNum().equals(optionalCourse.getMaxStuNum())) {
+                        return new ElectiveResult(false, "Course student number reached max!");
+                    }
+                }
+                // 如果符合条件，就添加成功
+                course.setStuNum(course.getStuNum() + 1);
+                // 因为只有课号唯一，因此直接跳出循环
+                break;
+            }
+        }
+        return new ElectiveResult(true, "Successfully selected course: %s"
+                .formatted(courseId));
+    }
+
+    @Override
+    public ElectiveResult deselectCourse(String courseId) {
+        // 检验课程号是否存在
+        if (!hasCourse(courseId)) {
+            return new ElectiveResult(false, "Course id doesn't exist");
+        }
+        for (BaseCourseDAO course : this.courses) {
+            if (course.getCourseId().equals(courseId)) {
+                if (course instanceof OptionalCourseDAO optionalCourse) {
+                    if (optionalCourse.getStuNum().equals(0)) {
+                        return new ElectiveResult(false, "Course student number reached zero!");
+                    }
+                }
+                // 如果符合条件，就退课成功
+                course.setStuNum(course.getStuNum() - 1);
+                // 因为只有课号唯一，因此直接跳出循环
+                break;
+            }
+        }
+        return new ElectiveResult(true, "Successfully deselected course: %s"
+                .formatted(courseId));
+    }
+
+    @Override
+    public boolean hasCourseOfTeacher(String workId, String courseId) {
+        return this.courses.stream()
+                .filter(course -> course.getCourseId().equals(courseId))
+                .allMatch(course -> course.getTeacherWorkId().equals(workId));
+    }
+
+    @Override
+    public void addRequiredCourse() {
+        this.courses.stream().filter(course -> course instanceof RequiredCourseDAO)
+                .forEach(course-> course.setStuNum(course.getStuNum() + 1));
+    }
+
+    @Override
+    public List<String> getRequiredCourseIds() {
+        return this.courses.stream()
+                .filter(course -> course instanceof RequiredCourseDAO)
+                .map(BaseCourseDAO::getCourseId)
                 .toList();
     }
 

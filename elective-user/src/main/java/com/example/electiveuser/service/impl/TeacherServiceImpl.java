@@ -74,7 +74,6 @@ public class TeacherServiceImpl implements TeacherService, BaseLoginService, Ini
             return new ElectiveResult(false, "Teacher workId doesn't exist!");
         }
 
-        // TODO 这里需要删除所有该教师教授的课程
         this.teachers.removeIf(teacher -> teacher.getWorkId().equals(workId));
         return new ElectiveResult(true, "Successfully removed teacher with workId: %s.".formatted(workId));
     }

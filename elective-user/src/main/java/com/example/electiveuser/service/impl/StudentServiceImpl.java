@@ -52,7 +52,7 @@ public class StudentServiceImpl implements StudentService, BaseLoginService, Ini
     @Override
     public boolean verifyStudent(String account, String password) {
         return this.students.stream().anyMatch(student -> student.getAccount().equals(account)
-                && student.getPassword().equals(password));
+                && student.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes())));
     }
 
     @Override
@@ -62,6 +62,7 @@ public class StudentServiceImpl implements StudentService, BaseLoginService, Ini
             return new ElectiveResult(false, "Teacher wordId or account already exists!");
         }
 
+        student.setSelectedCourses(new Vector<>(10));
         // 添加学生信息
         this.students.add(student);
         return new ElectiveResult(true, "Successfully added new student account: %s, name: %s, stuId: %s."
@@ -75,7 +76,6 @@ public class StudentServiceImpl implements StudentService, BaseLoginService, Ini
             return new ElectiveResult(false, "Student stuId doesn't exist!");
         }
 
-        // TODO 先进行学生的退课操作，退掉学生选择的所有课程
         this.students.removeIf(teacher -> teacher.getStuId().equals(stuId));
         return new ElectiveResult(true, "Successfully removed student with stuId: %s.".formatted(stuId));
     }
@@ -153,6 +153,72 @@ public class StudentServiceImpl implements StudentService, BaseLoginService, Ini
             }
         }
         return null;
+    }
+
+    @Override
+    public void addCourse(String stuId, String courseId) {
+        Iterator<StudentDAO> iterator = this.students.iterator();
+        while (iterator.hasNext()) {
+            StudentDAO student = iterator.next();
+            if (student.getStuId().equals(stuId)) {
+                int index = this.students.indexOf(student);
+                Vector<String> courses = student.getSelectedCourses();
+                courses.add(courseId);
+                student.setSelectedCourses(courses);
+                this.students.setElementAt(student, index);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void removeCourse(String stuId, String courseId) {
+        Iterator<StudentDAO> iterator = this.students.iterator();
+        while (iterator.hasNext()) {
+            StudentDAO student = iterator.next();
+            if (student.getStuId().equals(stuId)) {
+                int index = this.students.indexOf(student);
+                Vector<String> courses = student.getSelectedCourses();
+                courses.remove(courseId);
+                student.setSelectedCourses(courses);
+                this.students.setElementAt(student, index);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public List<StudentDAO> getAllLearningCourse(String courseId) {
+        return this.students.stream()
+                .filter(student -> student.getSelectedCourses().contains(courseId))
+                .toList();
+    }
+
+    @Override
+    public void addRequiredCourse(String courseId) {
+        this.students.forEach(student -> {
+            Vector<String> courses = student.getSelectedCourses();
+            courses.add(courseId);
+            student.setSelectedCourses(courses);
+        });
+    }
+
+    @Override
+    public void removeCourseForAll(String courseId) {
+        this.students.stream()
+                .filter(student -> student.getSelectedCourses().contains(courseId))
+                .forEach(student -> {
+                    Vector<String> courses = student.getSelectedCourses();
+                    courses.remove(courseId);
+                    student.setSelectedCourses(courses);
+                });
+    }
+
+    @Override
+    public boolean isCourseSelected(String stuId, String courseId) {
+        return this.students.stream()
+                .filter(student -> student.getStuId().equals(stuId))
+                .allMatch(student -> student.getSelectedCourses().contains(courseId));
     }
 
     @Override

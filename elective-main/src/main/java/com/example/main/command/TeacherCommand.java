@@ -5,6 +5,8 @@ import com.example.electivecommon.dto.ElectiveResult;
 import com.example.electivecommon.enums.LoginType;
 import com.example.electivecourse.dao.BaseCourseDAO;
 import com.example.electivecourse.service.impl.CourseServiceImpl;
+import com.example.electiveuser.dao.StudentDAO;
+import com.example.electiveuser.service.impl.StudentServiceImpl;
 import com.example.electiveuser.service.impl.TeacherServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.shell.Availability;
@@ -29,6 +31,9 @@ public class TeacherCommand {
 
     @Resource
     private TeacherServiceImpl teacherService;
+
+    @Resource
+    private StudentServiceImpl studentService;
 
     @Resource
     private LoginStatus loginStatus;
@@ -73,11 +78,28 @@ public class TeacherCommand {
     }
 
     /**
+     * 查看某门课的学生列表
+     *
+     * @param courseId 需要查看的课号
+     */
+    @ShellMethod(value = "List students in a course.", key = "list student teacher")
+    public void listStudentByCourse(@ShellOption String courseId) {
+        String workId = teacherService.getWorkIdByAccount(loginStatus.getAccount());
+        if (!courseService.hasCourseOfTeacher(workId, courseId)) {
+            System.out.println("Course isn't taught by current teacher!");
+            return;
+        }
+        List<StudentDAO> result = studentService.getAllLearningCourse(courseId);
+        result.forEach(System.out::println);
+        System.out.printf("%d student(s) listed.%n", result.size());
+    }
+
+    /**
      * 所有教师命令是否可用
      *
      * @return 教师命令的可用性
      */
-    @ShellMethodAvailability({"update teacher", "list course teacher"})
+    @ShellMethodAvailability({"update teacher", "list course teacher", "list student teacher"})
     public Availability teacherCommandAvailability() {
         return loginStatus.getLoggedIn() && loginStatus.getLoginType() == LoginType.TEACHER ?
                 Availability.available() : Availability.unavailable("You are not logged in as TEACHER!");

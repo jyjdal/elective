@@ -72,4 +72,41 @@ public interface CourseService {
      * @return 查找到的所有课程
      */
     List<BaseCourseDAO> getAllByCourseIds(List<String> courseIds);
+
+    /**
+     * 课程端的选课操作
+     *
+     * @param courseId 被选择课程的课号
+     * @return 课程是否选课成功
+     */
+    ElectiveResult selectCourse(String courseId);
+
+    /**
+     * 课程端的退课操作
+     *
+     * @param courseId 需要退课的课程课号
+     * @return 退课的结果
+     */
+    ElectiveResult deselectCourse(String courseId);
+
+    /**
+     * 检验某门课程是否由某位老师教授
+     *
+     * @param workId 教师的工号
+     * @param courseId 课程的课号
+     * @return 是否匹配到结果
+     */
+    boolean hasCourseOfTeacher(String workId, String courseId);
+
+    /**
+     * 添加必修课程
+     */
+    void addRequiredCourse();
+
+    /**
+     * 获取必修课课程的课号
+     *
+     * @return 所有必修课课程的课号
+     */
+    List<String> getRequiredCourseIds();
 }

@@ -23,6 +23,7 @@ import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * 管理员能够执行的所有命令
@@ -155,6 +156,9 @@ public class AdminCommand {
         ElectiveResult result = studentService.addStudent(student);
         System.out.println(result.getMessage());
         if (result.getSuccess()) {
+            // 为学生添加必修课程
+            courseService.addRequiredCourse();
+            courseService.getRequiredCourseIds().forEach(id -> studentService.addCourse(stuId, id));
             // 如果没有错误，写入日志
             log.info(result.getMessage());
         }
@@ -212,9 +216,14 @@ public class AdminCommand {
 
         // 添加选修课程
         ElectiveResult result = courseService.addCourse(course);
+        // 如果是必修课程，所有的学生都应该选修这门必修课
+        studentService.addRequiredCourse(courseId);
+
         // 输出信息
         System.out.println(result.getMessage());
         if (result.getSuccess()) {
+            // 为学生添加必修课程
+            studentService.addRequiredCourse(courseId);
             // 如果没有错误，写入日志
             log.info(result.getMessage());
         }
@@ -232,6 +241,14 @@ public class AdminCommand {
         System.out.println(result.getMessage());
         // 如果成功执行，那么写入日志
         if (result.getSuccess()) {
+            // 这里需要删除所有该教师教授的课程
+            List<String> courseIds = courseService.getAllByTeacherWorkId(workId).stream().map(BaseCourseDAO::getCourseId).toList();
+            courseIds.forEach(id -> {
+                // 首先删除课程
+                courseService.removeCourseByCourseId(id);
+                // 其次选择了课程的学生退课
+                studentService.removeCourseForAll(id);
+            });
             log.info(result.getMessage());
         }
     }
@@ -248,6 +265,9 @@ public class AdminCommand {
         System.out.println(result.getMessage());
         // 如果成功执行，那么写入日志
         if (result.getSuccess()) {
+            // 先进行学生的退课操作，退掉学生选择的所有课程
+            List<String> courses = studentService.getCourseIdsByStuId(stuId);
+            courses.forEach(courseService::deselectCourse);
             log.info(result.getMessage());
         }
     }
@@ -262,6 +282,8 @@ public class AdminCommand {
         ElectiveResult result = courseService.removeCourseByCourseId(courseId);
         System.out.println(result.getMessage());
         if (result.getSuccess()) {
+            // 删除课程的时候所有学生都应该退选这门课程
+            studentService.removeCourseForAll(courseId);
             log.info(result.getMessage());
         }
     }

@@ -73,7 +73,53 @@ public class StudentCommand {
         System.out.printf("%d course(s) listed.%n", result.size());
     }
 
-    @ShellMethodAvailability({"update student"})
+    /**
+     * 学生进行选课操作
+     *
+     * @param courseId 需要选择的课程号
+     */
+    @ShellMethod(value = "Select a course.", key = "select course")
+    public void selectCourse(@ShellOption String courseId) {
+        String stuId = studentService.getStuIdByAccount(loginStatus.getAccount());
+        if (studentService.isCourseSelected(stuId, courseId)) {
+            System.out.println("Course already selected!");
+            return;
+        }
+        // 课程被选中
+        ElectiveResult result = courseService.selectCourse(courseId);
+        if (result.getSuccess()) {
+            // 学生选课
+            studentService.addCourse(stuId, courseId);
+            log.info(result.getMessage());
+        }
+        System.out.println(result.getMessage());
+    }
+
+    /**
+     * 学生进行退课操作
+     *
+     * @param courseId 需要退课的课程号
+     */
+    @ShellMethod(value = "Deselect a course.", key = "deselect course")
+    public void deselectCourse(@ShellOption String courseId) {
+        String stuId = studentService.getStuIdByAccount(loginStatus.getAccount());
+        // 课程被退课
+        ElectiveResult result = courseService.deselectCourse(courseId);
+        if (result.getSuccess()) {
+            // 学生退课
+            studentService.removeCourse(stuId, courseId);
+            log.info(result.getMessage());
+        }
+        System.out.println(result.getMessage());
+    }
+
+    /**
+     * 所有学生命令是否可用
+     *
+     * @return 所有命令的可见性
+     */
+    @ShellMethodAvailability({"update student", "list course student",
+            "select course", "deselect course"})
     public Availability studentCommandAvailability() {
         return loginStatus.getLoggedIn() && loginStatus.getLoginType() == LoginType.STUDENT ?
                 Availability.available() : Availability.unavailable("You are not logged in as STUDENT!");

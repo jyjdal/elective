@@ -91,4 +91,51 @@ public interface StudentService {
      * @return 该学生选择所有课程的课号
      */
     List<String> getCourseIdsByStuId(String stuId);
+
+    /**
+     * 为学生添加课程
+     *
+     * @param stuId 需要添加课程的学生的学号
+     * @param courseId 需要添加的课程的课号
+     */
+    void addCourse(String stuId, String courseId);
+
+    /**
+     * 学生删除所选课程
+     *
+     * @param stuId 需要删除课程的学生的学号
+     * @param courseId 需要删除的课程的课号
+     */
+    void removeCourse(String stuId, String courseId);
+
+    /**
+     * 获取选了某门课程的所有学生
+     *
+     * @param courseId 课程的课号
+     * @return 所有选了该门课程的学生
+     */
+    List<StudentDAO> getAllLearningCourse(String courseId);
+
+    /**
+     * 为所有学生添加必修课
+     *
+     * @param courseId 需要添加的必修课课号
+     */
+    void addRequiredCourse(String courseId);
+
+    /**
+     * 为所有选择该门课程的学生退课
+     *
+     * @param courseId 需要退课的课程课号
+     */
+    void removeCourseForAll(String courseId);
+
+    /**
+     * 判断某门课程是否已经选过
+     *
+     * @param stuId 学生的学号
+     * @param courseId 需要判断的课号
+     * @return 该门课程是否被学生选修过
+     */
+    boolean isCourseSelected(String stuId, String courseId);
 }
