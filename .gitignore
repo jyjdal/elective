@@ -41,5 +41,6 @@ electice.log
 spring-shell.log
 admin.json
 teacher.json
+student.json
 course.json
 *.gz
