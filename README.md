@@ -45,3 +45,20 @@
 ![选课](./image/select%20course.png)
 ![退出](./image/exit.png)
 更多命令请在应用内输入`help`以获得更多信息
+
+## 模块划分
+* elective-common：程序中用到的配置信息和常量等，如数据文件的文件名、命令执行的结果等，避免直接
+  写入代码中产生魔法值，造成程序逻辑不清晰。
+* elective-course、elective-user：课程和用户的相关功能的实现，使用service-impl的结构对程序解耦
+  提高程序的可维护性和可扩展性。同时采用InitializingBean和DisposalBean接口实现文件的读写，在程
+  序开始/结束时自动执行，不需要手动调用，提高程序的健壮性。
+* elective-main：选课系统程序的入口，程序运行时的配置信息存放在此。选课系统的功能都使用spring-shell
+  框架以命令的形式暴露给用户，进一步实现解耦。
+
+## 生成的文件
+* elective-main-0.01-SNAPSHOT.jar：应用程序打包后的可执行jar包
+* elective.log：选课系统产生的日志，便于程序记录运行时信息。方便程序出错时及时查找错误来源，提
+  高了程序的健壮性
+* spring-shell.log：spring-shell框架产生的日志，记录了用户输入的命令信息
+* *.json：应用程序存放的数据记录，包括学生、教师、管理员和课程信息，使用json格式便于程序快速加载
+  数据。用户的密码以md5形式存放，防止程序泄露敏感信息。

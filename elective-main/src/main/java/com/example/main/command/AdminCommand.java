@@ -23,7 +23,6 @@ import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * 管理员能够执行的所有命令
